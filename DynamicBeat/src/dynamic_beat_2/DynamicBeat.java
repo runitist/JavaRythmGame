@@ -24,7 +24,7 @@ public class DynamicBeat extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		
-		introBackground = new ImageIcon(this.getClass().getResource("../introBackground.jpg")).getImage();//경로는 .class 파일을 기준으로 정함.
+		introBackground = new ImageIcon(this.getClass().getResource("../img/introBackground.jpg")).getImage();//경로는 .class 파일을 기준으로 정함.
 	}
 	
 	public void paint(Graphics g) {
