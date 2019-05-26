@@ -45,6 +45,10 @@ public class DynamicBeat extends JFrame {
 	private ImageIcon hardButtonBasicImage = new ImageIcon(this.getClass().getResource("../img/hardbtnbasic.png"));
 	private ImageIcon hardButtonEnteredImage = new ImageIcon(this.getClass().getResource("../img/hardbtnentered.png"));
 	
+	//돌아가기 버튼
+	private ImageIcon gobackButtonBasicImage = new ImageIcon(this.getClass().getResource("../img/back.png"));
+	private ImageIcon gobackButtonEnteredImage = new ImageIcon(this.getClass().getResource("../img/backent.png"));
+	
 	private JButton exitButton = new JButton(exitButtonBasicImage);
 	private JButton startButton = new JButton(startButtonBasicImage);
 	private JButton quitButton = new JButton(quitButtonBasicImage);
@@ -52,6 +56,7 @@ public class DynamicBeat extends JFrame {
 	private JButton rightButton = new JButton(rightButtonBasicImage);
 	private JButton easyButton = new JButton(easyButtonBasicImage);
 	private JButton hardButton = new JButton(hardButtonBasicImage);
+	private JButton gobackButton = new JButton(gobackButtonBasicImage);
 	private int mouseX, mouseY;
 
 	private boolean isMainScreen = false;
@@ -316,6 +321,7 @@ public class DynamicBeat extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				easyButton.setIcon(easyButtonEnteredImage);
 				gameStart(nowSelected, "easy");
+				gobackButton.setVisible(true);
 			}
 		});
 		add(easyButton);
@@ -348,9 +354,55 @@ public class DynamicBeat extends JFrame {
 					public void mouseReleased(MouseEvent e) {
 						hardButton.setIcon(hardButtonEnteredImage);
 						gameStart(nowSelected, "hard");
+						gobackButton.setVisible(true);
 					}
 				});
 				add(hardButton);
+				
+				
+				// 뒤로가기버튼용
+				gobackButton.setVisible(false);
+				gobackButton.setBounds(1120, 30, 150, 174);// setLayout이 null이여서 setbounds로 위치를 지정해야함.
+				gobackButton.setBorderPainted(false);
+				gobackButton.setContentAreaFilled(false);
+				gobackButton.setFocusPainted(false);
+				gobackButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						gobackButton.setIcon(gobackButtonEnteredImage);
+						gobackButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						gobackButton.setIcon(gobackButtonBasicImage);
+						gobackButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						gobackButton.setIcon(gobackButtonBasicImage);
+					}
+
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						gobackButton.setVisible(false);
+						gobackButton.setIcon(gobackButtonEnteredImage);
+						
+						//뒤로가기 기능
+						selectTrack(nowSelected);
+						startButton.setVisible(false);
+						quitButton.setVisible(false);
+						leftButton.setVisible(true);
+						rightButton.setVisible(true);
+						easyButton.setVisible(true);
+						hardButton.setVisible(true);
+						background = new ImageIcon(this.getClass().getResource("../img/mainBackground.jpg")).getImage();
+						isMainScreen = true;
+					}
+				});
+				add(gobackButton);
+				
 
 		menuBar.setBounds(0, 0, 1280, 30);
 		menuBar.addMouseListener(new MouseAdapter() {
