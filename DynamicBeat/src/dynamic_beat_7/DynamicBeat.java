@@ -59,6 +59,9 @@ public class DynamicBeat extends JFrame {
 	private int nowSelected = 0;
 
 	public DynamicBeat(int width, int height) {// 이 클래스의 인스턴스가 생성되면 자동 동작.
+		
+		//jframe 프로그램 아이콘 변경
+		setIconImage(new ImageIcon(this.getClass().getResource("../img/game640.png")).getImage());
 		setUndecorated(true);// 기본 메뉴바 삭제
 		screenWidth = width;
 		screenHeight = height;
@@ -133,8 +136,6 @@ public class DynamicBeat extends JFrame {
 		jl2.setBounds(1150, 350, 200, 50);
 		jl2.setVisible(false);
 		add(jl2);
-		
-
 		
 		// 스타트 버튼용
 		startButton.setBounds(1100, 100, 150, 150);// setLayout이 null이여서 setbounds로 위치를 지정해야함.
