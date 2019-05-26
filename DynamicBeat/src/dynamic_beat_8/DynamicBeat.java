@@ -1,4 +1,4 @@
-package dynamic_beat_7;
+package dynamic_beat_8;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -39,19 +39,11 @@ public class DynamicBeat extends JFrame {
 	private ImageIcon rightButtonBasicImage = new ImageIcon(this.getClass().getResource("../img/rightbasic.png"));
 	private ImageIcon rightButtonEnteredImage = new ImageIcon(this.getClass().getResource("../img/rightentered.png"));
 
-	//난이도 버튼
-	private ImageIcon easyButtonBasicImage = new ImageIcon(this.getClass().getResource("../img/easybtnbasic.png"));
-	private ImageIcon easyButtonEnteredImage = new ImageIcon(this.getClass().getResource("../img/easybtnentered.png"));
-	private ImageIcon hardButtonBasicImage = new ImageIcon(this.getClass().getResource("../img/hardbtnbasic.png"));
-	private ImageIcon hardButtonEnteredImage = new ImageIcon(this.getClass().getResource("../img/hardbtnentered.png"));
-	
 	private JButton exitButton = new JButton(exitButtonBasicImage);
 	private JButton startButton = new JButton(startButtonBasicImage);
 	private JButton quitButton = new JButton(quitButtonBasicImage);
 	private JButton leftButton = new JButton(leftButtonBasicImage);
 	private JButton rightButton = new JButton(rightButtonBasicImage);
-	private JButton easyButton = new JButton(easyButtonBasicImage);
-	private JButton hardButton = new JButton(hardButtonBasicImage);
 	private int mouseX, mouseY;
 
 	private boolean isMainScreen = false;
@@ -85,6 +77,11 @@ public class DynamicBeat extends JFrame {
 		Music introMusic = new Music("Skyline  Chillhop.mp3", true);
 		introMusic.start();
 
+		trackList.add(new Track("Ed Sheeran - Shape Of You ( cover by J.Fla ) title.png",
+				"Ed Sheeran - Shape Of You ( cover by J.Fla ) 600x450.jpg",
+				"Ed Sheeran - Shape Of You ( cover by J.Fla ) 1280x720.jpg",
+				"Ed Sheeran - Shape Of You ( cover by J.Fla ) sample.mp3",
+				"Ed Sheeran - Shape Of You ( cover by J.Fla ).mp3"));
 		trackList.add(new Track("Imagine Dragons - Believer ( cover by J.Fla ) title.png",
 				"Imagine Dragons - Believer ( cover by J.Fla ) 600x450.jpg",
 				"Imagine Dragons - Believer ( cover by J.Fla ) 1280x720.jpg",
@@ -95,11 +92,6 @@ public class DynamicBeat extends JFrame {
 				"Imagine Dragons - Natural ( cover by J.Fla ) 1280x720.jpg",
 				"Imagine Dragons - Natural ( cover by J.Fla ) sample.mp3",
 				"Imagine Dragons - Natural ( cover by J.Fla ).mp3"));
-		trackList.add(new Track("Ed Sheeran - Shape Of You ( cover by J.Fla ) title.png",
-				"Ed Sheeran - Shape Of You ( cover by J.Fla ) 600x450.jpg",
-				"Ed Sheeran - Shape Of You ( cover by J.Fla ) 1280x720.jpg",
-				"Ed Sheeran - Shape Of You ( cover by J.Fla ) sample.mp3",
-				"Ed Sheeran - Shape Of You ( cover by J.Fla ).mp3"));
 
 		// 메뉴바 x버튼용. 컴포넌트중 가장 위에 위치함.
 		exitButton.setBounds(1245, 0, 30, 30);// setLayout이 null이여서 setbounds로 위치를 지정해야함.
@@ -181,8 +173,6 @@ public class DynamicBeat extends JFrame {
 				quitButton.setVisible(false);
 				leftButton.setVisible(true);
 				rightButton.setVisible(true);
-				easyButton.setVisible(true);
-				hardButton.setVisible(true);
 				background = new ImageIcon(this.getClass().getResource("../img/mainBackground.jpg")).getImage();
 				isMainScreen = true;
 			}
@@ -286,71 +276,6 @@ public class DynamicBeat extends JFrame {
 			}
 		});
 		add(rightButton);
-		
-		
-		//easy버튼
-		easyButton.setVisible(false);
-		easyButton.setBounds(375, 580, 150, 150);// setLayout이 null이여서 setbounds로 위치를 지정해야함.
-		easyButton.setBorderPainted(false);
-		easyButton.setContentAreaFilled(false);
-		easyButton.setFocusPainted(false);
-		easyButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				easyButton.setIcon(easyButtonEnteredImage);
-				easyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				easyButton.setIcon(easyButtonBasicImage);
-				easyButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				easyButton.setIcon(easyButtonBasicImage);
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				easyButton.setIcon(easyButtonEnteredImage);
-				gameStart(nowSelected, "easy");
-			}
-		});
-		add(easyButton);
-		
-		//hard버튼
-				hardButton.setVisible(false);
-				hardButton.setBounds(755, 580, 150, 150);// setLayout이 null이여서 setbounds로 위치를 지정해야함.
-				hardButton.setBorderPainted(false);
-				hardButton.setContentAreaFilled(false);
-				hardButton.setFocusPainted(false);
-				hardButton.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						hardButton.setIcon(hardButtonEnteredImage);
-						hardButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-					}
-
-					@Override
-					public void mouseExited(MouseEvent e) {
-						hardButton.setIcon(hardButtonBasicImage);
-						hardButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-					}
-
-					@Override
-					public void mousePressed(MouseEvent e) {
-						hardButton.setIcon(hardButtonBasicImage);
-					}
-
-					@Override
-					public void mouseReleased(MouseEvent e) {
-						hardButton.setIcon(hardButtonEnteredImage);
-						gameStart(nowSelected, "hard");
-					}
-				});
-				add(hardButton);
 
 		menuBar.setBounds(0, 0, 1280, 30);
 		menuBar.addMouseListener(new MouseAdapter() {
@@ -417,16 +342,5 @@ public class DynamicBeat extends JFrame {
 			nowSelected++;
 		}
 		selectTrack(nowSelected);
-	}
-	
-	public void gameStart(int nowSelected, String difficulty) {
-		if(selectedMusic != null) selectedMusic.close();
-		isMainScreen = false;
-		leftButton.setVisible(false);
-		rightButton.setVisible(false);
-		easyButton.setVisible(false);
-		hardButton.setVisible(false);
-		background = new ImageIcon(this.getClass().getResource("../img/"+trackList.get(nowSelected).getGameImage())).getImage();
-		
 	}
 }
