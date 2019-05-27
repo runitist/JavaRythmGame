@@ -18,6 +18,10 @@ import javax.swing.JLabel;
 //게임 로직은 각 부분이 뷰와 연계되어 무겁기 때문에 배치 순서가 중요.
 public class DynamicBeat extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Image screenImage;
 	private Graphics screenGraphic;
 	private int screenWidth, screenHeight;
