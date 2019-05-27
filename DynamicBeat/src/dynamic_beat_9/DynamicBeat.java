@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 //뷰&로직 부분.
+//게임 로직은 각 부분이 뷰와 연계되어 무겁기 때문에 배치 순서가 중요.
 public class DynamicBeat extends JFrame {
 
 	private Image screenImage;
@@ -59,6 +60,7 @@ public class DynamicBeat extends JFrame {
 	private JButton gobackButton = new JButton(gobackButtonBasicImage);
 	private int mouseX, mouseY;
 
+	private boolean isStartScreen = true;
 	private boolean isMainScreen = false;
 
 	ArrayList<Track> trackList = new ArrayList<Track>();
@@ -177,6 +179,7 @@ public class DynamicBeat extends JFrame {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				gobackButton.setVisible(true);
 				startButton.setIcon(startButtonEnteredImage);
 				jl1.setVisible(false);
 				// 게임 시작 이벤트
@@ -190,6 +193,7 @@ public class DynamicBeat extends JFrame {
 				hardButton.setVisible(true);
 				background = new ImageIcon(this.getClass().getResource("../img/mainBackground.jpg")).getImage();
 				isMainScreen = true;
+				isStartScreen = false;
 			}
 		});
 		add(startButton);
@@ -362,7 +366,7 @@ public class DynamicBeat extends JFrame {
 				
 				// 뒤로가기버튼용
 				gobackButton.setVisible(false);
-				gobackButton.setBounds(1120, 30, 150, 174);// setLayout이 null이여서 setbounds로 위치를 지정해야함.
+				gobackButton.setBounds(5, 5, 150, 174);// setLayout이 null이여서 setbounds로 위치를 지정해야함.
 				gobackButton.setBorderPainted(false);
 				gobackButton.setContentAreaFilled(false);
 				gobackButton.setFocusPainted(false);
@@ -386,19 +390,14 @@ public class DynamicBeat extends JFrame {
 
 					@Override
 					public void mouseReleased(MouseEvent e) {
-						gobackButton.setVisible(false);
 						gobackButton.setIcon(gobackButtonEnteredImage);
 						
 						//뒤로가기 기능
-						selectTrack(nowSelected);
-						startButton.setVisible(false);
-						quitButton.setVisible(false);
-						leftButton.setVisible(true);
-						rightButton.setVisible(true);
-						easyButton.setVisible(true);
-						hardButton.setVisible(true);
-						background = new ImageIcon(this.getClass().getResource("../img/mainBackground.jpg")).getImage();
-						isMainScreen = true;
+						if(!isMainScreen) {
+							backMain();
+						}else if(!isStartScreen) {
+							backStart();
+						}
 					}
 				});
 				add(gobackButton);
@@ -480,5 +479,35 @@ public class DynamicBeat extends JFrame {
 		hardButton.setVisible(false);
 		background = new ImageIcon(this.getClass().getResource("../img/"+trackList.get(nowSelected).getGameImage())).getImage();
 		
+	}
+	
+	public void backMain() {
+		gobackButton.setVisible(true);
+		selectTrack(nowSelected);
+		startButton.setVisible(false);
+		quitButton.setVisible(false);
+		leftButton.setVisible(true);
+		rightButton.setVisible(true);
+		easyButton.setVisible(true);
+		hardButton.setVisible(true);
+		background = new ImageIcon(this.getClass().getResource("../img/mainBackground.jpg")).getImage();
+		isMainScreen = true;
+	}
+	
+	public void backStart() {
+		gobackButton.setVisible(false);
+		selectTrack(0);
+		selectedMusic.close();
+		Music introMusic = new Music("Skyline  Chillhop.mp3", true);
+		introMusic.start();
+		startButton.setVisible(true);
+		quitButton.setVisible(true);
+		leftButton.setVisible(false);
+		rightButton.setVisible(false);
+		easyButton.setVisible(false);
+		hardButton.setVisible(false);
+		background = new ImageIcon(this.getClass().getResource("../img/introBackground.jpg")).getImage();
+		isMainScreen = false;
+		isStartScreen = true;
 	}
 }
