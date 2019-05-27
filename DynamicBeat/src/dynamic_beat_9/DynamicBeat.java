@@ -66,6 +66,7 @@ public class DynamicBeat extends JFrame {
 	ArrayList<Track> trackList = new ArrayList<Track>();
 
 	private Music selectedMusic;
+	Music introMusic;
 
 	// 타이틀 이미지
 
@@ -89,7 +90,7 @@ public class DynamicBeat extends JFrame {
 		setBackground(new Color(0, 0, 0, 0));
 		setLayout(null);// 컴포넌트 위치를 절대좌표로 만듬
 
-		Music introMusic = new Music("Skyline  Chillhop.mp3", true);
+		introMusic = new Music("Skyline  Chillhop.mp3", true);
 		introMusic.start();
 
 		trackList.add(new Track("Imagine Dragons - Believer ( cover by J.Fla ) title.png",
@@ -498,7 +499,7 @@ public class DynamicBeat extends JFrame {
 		gobackButton.setVisible(false);
 		selectTrack(0);
 		selectedMusic.close();
-		Music introMusic = new Music("Skyline  Chillhop.mp3", true);
+		introMusic = new Music("Skyline  Chillhop.mp3", true);
 		introMusic.start();
 		startButton.setVisible(true);
 		quitButton.setVisible(true);
